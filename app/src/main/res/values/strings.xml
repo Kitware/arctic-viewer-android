@@ -6,6 +6,7 @@
   <string name="download_dataset">Download Dataset</string>
   <string name="magic_lens">Magic Lens</string>
   <string name="MB">MB</string>
+  <string name="plus">+</string>
   <string name="sample_url">http://somewhere.com/file.tgz</string>
   <string name="server_ip">Server IP:</string>
   <string name="server_sentence">A server is running at:</string>
