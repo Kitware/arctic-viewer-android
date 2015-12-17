@@ -1,12 +1,8 @@
 package com.kitware.arcticviewer;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.util.AttributeSet;
@@ -50,24 +46,7 @@ public class DownloadCell extends LinearLayout {
             if (result == null) {
                 return;
             }
-            float dp = Resources.getSystem().getDisplayMetrics().density;
-            float width = result.getWidth();
-            float height = result.getHeight();
-            int targetWidth = (int)(64 * dp);
-            int targetHeight = (int)(64 * dp);
-            Bitmap rescaled = Bitmap.createBitmap(targetWidth,
-              targetHeight, Bitmap.Config.ARGB_8888);
-            float scale = targetWidth / width;
-            float dx = 0.0f;
-            float dy = (targetHeight - height * scale) * 0.5f;
-            Matrix transformation = new Matrix();
-            transformation.postTranslate(dx, dy);
-            transformation.preScale(scale, scale);
-            Paint paint = new Paint();
-            paint.setFilterBitmap(true);
-            Canvas canvas = new Canvas(rescaled);
-            canvas.drawBitmap(result, transformation, paint);
-            image.setImageBitmap(rescaled);
+            image.setImageBitmap(SelectDataset.Resize(result, 64, 64));
         }
     }
 

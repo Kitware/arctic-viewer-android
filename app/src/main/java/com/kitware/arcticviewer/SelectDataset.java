@@ -1,7 +1,11 @@
 package com.kitware.arcticviewer;
 
-import android.content.res.AssetManager;
+import android.content.res.Resources;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.graphics.Bitmap;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,7 +17,29 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class ArcticViewer extends ActionBarActivity {
+public class SelectDataset extends ActionBarActivity {
+
+    public static Bitmap Resize(Bitmap input, int targetWidth, int targetHeight) {
+        float dp = Resources.getSystem().getDisplayMetrics().density;
+        float width = input.getWidth();
+        float height = input.getHeight();
+        targetWidth *= dp;
+        targetHeight *= dp;
+        Bitmap rescaled = Bitmap.createBitmap(targetWidth,
+                targetHeight, Bitmap.Config.ARGB_8888);
+        float scale = targetWidth / width;
+        float dx = 0.0f;
+        float dy = (targetHeight - height * scale) * 0.5f;
+        Matrix transformation = new Matrix();
+        transformation.postTranslate(dx, dy);
+        transformation.preScale(scale, scale);
+        Paint paint = new Paint();
+        paint.setFilterBitmap(true);
+        Canvas canvas = new Canvas(rescaled);
+        canvas.drawBitmap(input, transformation, paint);
+        return rescaled;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
