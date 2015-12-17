@@ -1,15 +1,17 @@
 <resources>
-  <string name="about">About</string>
-  <string name="app_name">Arctic Viewer</string>
-  <string name="action_settings">Settings</string>
-  <string name="datasets">Datasets</string>
-  <string name="download_dataset">Download Dataset</string>
-  <string name="magic_lens">Magic Lens</string>
-  <string name="MB">MB</string>
-  <string name="plus">+</string>
-  <string name="sample_url">http://somewhere.com/file.tgz</string>
-  <string name="server_ip">Server IP:</string>
-  <string name="server_sentence">A server is running at:</string>
-  <string name="single_view">Single View</string>
-  <string name="size_colon">Size: </string>
+    <string name="about">About</string>
+    <string name="app_name">Arctic Viewer</string>
+    <string name="action_settings">Settings</string>
+    <string name="datasets">Datasets</string>
+    <string name="done">Done</string>
+    <string name="download">\u2193</string>
+    <string name="download_dataset">Download Dataset</string>
+    <string name="magic_lens">Magic Lens</string>
+    <string name="MB">MB</string>
+    <string name="plus">+</string>
+    <string name="sample_url">http://somewhere.com/file.tgz</string>
+    <string name="server_ip">Server IP:</string>
+    <string name="server_sentence">A server is running at:</string>
+    <string name="single_view">Single View</string>
+    <string name="size_colon">Size: </string>
 </resources>
