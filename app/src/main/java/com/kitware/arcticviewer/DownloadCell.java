@@ -47,6 +47,9 @@ public class DownloadCell extends LinearLayout {
         }
 
         protected void onPostExecute(Bitmap result) {
+            if (result == null) {
+                return;
+            }
             float dp = Resources.getSystem().getDisplayMetrics().density;
             float width = result.getWidth();
             float height = result.getHeight();
