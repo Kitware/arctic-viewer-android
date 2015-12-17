@@ -1,10 +1,17 @@
 package com.kitware.arcticviewer;
 
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class ArcticViewer extends ActionBarActivity {
     @Override
@@ -12,47 +19,32 @@ public class ArcticViewer extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_dataset);
 
-        // Fetch all datasets
-        LinearLayout datasetList = (LinearLayout)findViewById(R.id.dataset_list);
-
-        {
-            DownloadCell cell1 = new DownloadCell(this);
-            cell1.setDatasetName("Diskout Ref - Composite");
-            cell1.setDatasetSize("40 MB");
-            cell1.setImageURL("http://tonic.kitware.com/arctic-viewer/diskout-composite.png");
-            datasetList.addView(cell1);
-
-            DownloadCell cell2 = new DownloadCell(this);
-            cell2.setDatasetName("Ensemble - Demo");
-            cell2.setDatasetSize("94.2 MB");
-            cell2.setImageURL("http://tonic.kitware.com/arctic-viewer/ensemble.jpg");
-            datasetList.addView(cell2);
-
-            DownloadCell cell3 = new DownloadCell(this);
-            cell3.setDatasetName("Garfield Comic");
-            cell3.setDatasetSize("292 KB");
-            cell3.setImageURL("http://tonic.kitware.com/arctic-viewer/garfield.jpg");
-            datasetList.addView(cell3);
+        // Parse dataset JSON
+        String jsonString = null;
+        try {
+            InputStream input = getAssets().open("sample-data.json");
+            int size = input.available();
+            byte[] buffer = new byte[size];
+            input.read(buffer);
+            input.close();
+            jsonString = new String(buffer, "UTF-8");
+        } catch (IOException e) {
         }
 
-        {
-            DownloadCell cell1 = new DownloadCell(this);
-            cell1.setDatasetName("Diskout Ref - Composite");
-            cell1.setDatasetSize("40 MB");
-            cell1.setImageURL("http://tonic.kitware.com/arctic-viewer/diskout-composite.png");
-            datasetList.addView(cell1);
+        // Fetch all datasets
+        LinearLayout datasetList = (LinearLayout)findViewById(R.id.dataset_list);
+        try {
+            JSONArray json = new JSONArray(jsonString);
+            for (int i = 0; i < json.length(); ++i) {
+                JSONObject obj = json.getJSONObject(i);
 
-            DownloadCell cell2 = new DownloadCell(this);
-            cell2.setDatasetName("Ensemble - Demo");
-            cell2.setDatasetSize("94.2 MB");
-            cell2.setImageURL("http://tonic.kitware.com/arctic-viewer/ensemble.jpg");
-            datasetList.addView(cell2);
-
-            DownloadCell cell3 = new DownloadCell(this);
-            cell3.setDatasetName("Garfield Comic");
-            cell3.setDatasetSize("292 KB");
-            cell3.setImageURL("http://tonic.kitware.com/arctic-viewer/garfield.jpg");
-            datasetList.addView(cell3);
+                DownloadCell cell = new DownloadCell(this);
+                cell.setDatasetName(obj.getString("title"));
+                cell.setDatasetSize(obj.getString(("filesize")));
+                cell.setImageURL(obj.getString(("thumbnail")));
+                datasetList.addView(cell);
+            }
+        } catch (Exception e) {
         }
     }
 

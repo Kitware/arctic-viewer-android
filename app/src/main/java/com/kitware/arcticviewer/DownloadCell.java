@@ -50,8 +50,8 @@ public class DownloadCell extends LinearLayout {
             float dp = Resources.getSystem().getDisplayMetrics().density;
             float width = result.getWidth();
             float height = result.getHeight();
-            int targetWidth = (int)(128 * dp);
-            int targetHeight = (int)(128 * dp);
+            int targetWidth = (int)(64 * dp);
+            int targetHeight = (int)(64 * dp);
             Bitmap rescaled = Bitmap.createBitmap(targetWidth,
               targetHeight, Bitmap.Config.ARGB_8888);
             float scale = targetWidth / width;
