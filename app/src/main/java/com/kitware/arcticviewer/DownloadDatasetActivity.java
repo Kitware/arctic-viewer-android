@@ -20,7 +20,7 @@ import java.io.InputStream;
  * Created by tim on 12/17/15.
  */
 public class DownloadDatasetActivity extends ActionBarActivity {
-    String selectedUrl;
+    DownloadCell selectedCell;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,16 +49,14 @@ public class DownloadDatasetActivity extends ActionBarActivity {
                 JSONObject first = json.getJSONObject(i);
                 DownloadCell firstCell = new DownloadCell(this);
                 firstCell.setActivity(this);
-                firstCell.setImageURL(first.getString(("thumbnail")));
-                firstCell.setDatasetURL(first.getString("url"));
+                firstCell.setJSON(first);
                 row.addView(firstCell);
 
                 if (i < json.length() - 1) {
                     JSONObject second = json.getJSONObject(i + 1);
                     DownloadCell secondCell = new DownloadCell(this);
                     secondCell.setActivity(this);
-                    secondCell.setImageURL(second.getString(("thumbnail")));
-                    secondCell.setDatasetURL(second.getString("url"));
+                    secondCell.setJSON(second);
                     row.addView(secondCell);
                 }
                 downloadables.addView(row);
@@ -68,11 +66,14 @@ public class DownloadDatasetActivity extends ActionBarActivity {
         }
     }
 
-    public void setSelectedUrl(String url) {
-        selectedUrl = url;
+    public void setSelectedCell(DownloadCell cell) {
+        selectedCell = cell;
 
-        TextView urlView = (TextView)findViewById(R.id.url);
-        urlView.setText(url);
+        try {
+            TextView urlView = (TextView) findViewById(R.id.url);
+            urlView.setText(cell.getJSON().getString("url"));
+        } catch (Exception e) {
+        }
     }
 
     public void onDownload(View view) {
@@ -80,7 +81,8 @@ public class DownloadDatasetActivity extends ActionBarActivity {
 
         DownloadDatasetTask task = new DownloadDatasetTask();
         task.setProgress(progress);
-        task.execute(selectedUrl);
+        task.setJSON(selectedCell.getJSON());
+        task.execute();
     }
 
     public void onDone(View view) {

@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="centerInside"
-            android:id="@+id/download_cell_image" />
+            android:id="@+id/dataset_cell_image" />
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
@@ -28,14 +28,14 @@
                 android:layout_gravity="left|center_vertical"
                 android:singleLine="true"
                 android:ellipsize="end"
-                android:id="@+id/download_cell_dataset_name" />
+                android:id="@+id/dataset_cell_dataset_name" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:text="Size: X MB"
                 android:textSize="10dp"
                 android:gravity="center"
-                android:id="@+id/download_cell_dataset_size" />
+                android:id="@+id/dataset_cell_dataset_size" />
         </LinearLayout>
     </LinearLayout>
 </merge>

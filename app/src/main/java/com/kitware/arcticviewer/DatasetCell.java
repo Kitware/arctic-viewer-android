@@ -13,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.InputStream;
 import java.net.URL;
 
@@ -23,6 +26,8 @@ public class DatasetCell extends LinearLayout {
     ImageView image;
     TextView datasetName;
     TextView datasetSize;
+
+    JSONObject dataset;
 
     public DatasetCell(Context context) {
         super(context);
@@ -40,11 +45,11 @@ public class DatasetCell extends LinearLayout {
     }
 
     private void initialize(Context context) {
-        View.inflate(context, R.layout.download_cell, this);
+        View.inflate(context, R.layout.dataset_cell, this);
         setDescendantFocusability(FOCUS_BLOCK_DESCENDANTS);
-        image = (ImageView)findViewById(R.id.download_cell_image);
-        datasetName = (TextView)findViewById(R.id.download_cell_dataset_name);
-        datasetSize = (TextView)findViewById(R.id.download_cell_dataset_size);
+        image = (ImageView) findViewById(R.id.dataset_cell_image);
+        datasetName = (TextView) findViewById(R.id.dataset_cell_dataset_name);
+        datasetSize = (TextView) findViewById(R.id.dataset_cell_dataset_size);
 
         setOnTouchListener(new OnTouchListener() {
             @Override
@@ -61,15 +66,15 @@ public class DatasetCell extends LinearLayout {
         });
     }
 
-    public void setDatasetName(String name) {
-        datasetName.setText(name);
-    }
+    public void setJSON(JSONObject json) {
+        dataset = json;
 
-    public void setDatasetSize(String size) {
-        datasetSize.setText("Size: " + size);
+        try {
+            datasetSize.setText("Size: " + dataset.getString("filesize"));
+            datasetName.setText(dataset.getString("title"));
+            new DownloadImageTask(image, 64, 64).execute(dataset.getString("thumbnail"));
+        } catch (JSONException e) {
+        }
     }
-
-    public void setImageURL(String url) {
-        new DownloadImageTask(image, 64, 64).execute(url);
-    }
+    public JSONObject getJSON() { return dataset; }
 }

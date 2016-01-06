@@ -8,15 +8,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import org.json.JSONObject;
+
 /**
  * Created by tim on 12/16/15.
  */
 public class DownloadCell extends LinearLayout {
     DownloadDatasetActivity activity;
     ImageView image;
-    String datasetName;
-    String datasetSize;
-    String datasetUrl;
+    JSONObject dataset;
 
     public DownloadCell(Context context) {
         super(context);
@@ -41,9 +41,9 @@ public class DownloadCell extends LinearLayout {
         setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                DownloadCell c = (DownloadCell)v;
+                DownloadCell c = (DownloadCell) v;
                 if (c != null) {
-                    activity.setSelectedUrl(c.datasetUrl);
+                    activity.setSelectedCell(c);
                     return true;
                 }
                 return false;
@@ -55,11 +55,15 @@ public class DownloadCell extends LinearLayout {
         activity = downloadActivity;
     }
 
-    public void setImageURL(String url) {
-        new DownloadImageTask(image, 160, 160).execute(url);
-    }
+    public void setJSON(JSONObject json) {
+        dataset = json;
 
-    public void setDatasetURL(String url) {
-        datasetUrl = url;
+        try {
+            new DownloadImageTask(image, 160, 160).execute(dataset.getString("thumbnail"));
+        } catch (Exception e) {
+        }
+    }
+    public JSONObject getJSON() {
+        return dataset;
     }
 }
