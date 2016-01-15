@@ -23,6 +23,7 @@ import java.net.URL;
  * Created by tim on 12/16/15.
  */
 public class DatasetCell extends LinearLayout {
+    SelectDatasetActivity activity;
     ImageView image;
     TextView datasetName;
     TextView datasetSize;
@@ -54,16 +55,18 @@ public class DatasetCell extends LinearLayout {
         setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Rect hitRect = new Rect();
-                v.getHitRect(hitRect);
-                if (hitRect.contains((int) event.getX(), (int) event.getY())) {
-                    event.setLocation(0.0f, 0.0f);
-                    // TODO: handle touch event
+                DatasetCell c = (DatasetCell) v;
+                if (c != null) {
+                    activity.selectDataset(c);
                     return true;
                 }
                 return false;
             }
         });
+    }
+
+    public void setActivity(SelectDatasetActivity selectActivity) {
+        activity = selectActivity;
     }
 
     public void setJSON(JSONObject json) {

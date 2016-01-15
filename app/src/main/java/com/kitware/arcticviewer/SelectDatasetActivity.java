@@ -46,6 +46,7 @@ public class SelectDatasetActivity extends ActionBarActivity {
                 JSONObject jsonObject = json.getJSONObject(i);
 
                 DatasetCell cell = new DatasetCell(this);
+                cell.setActivity(this);
                 cell.setJSON(jsonObject);
 
                 datasets.addView(cell);
@@ -79,6 +80,11 @@ public class SelectDatasetActivity extends ActionBarActivity {
 
     public void onAddDataset(View view) {
         Intent intent = new Intent(this, DownloadDatasetActivity.class);
+        startActivity(intent);
+    }
+
+    public void selectDataset(DatasetCell cell) {
+        Intent intent = new Intent(this, ViewDatasetActivity.class);
         startActivity(intent);
     }
 }
