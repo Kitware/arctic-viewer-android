@@ -1,7 +1,6 @@
 package com.kitware.arcticviewer;
 
 import android.content.Context;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;

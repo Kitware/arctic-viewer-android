@@ -1,14 +1,11 @@
 package com.kitware.arcticviewer;
 
-import android.app.ExpandableListActivity;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
