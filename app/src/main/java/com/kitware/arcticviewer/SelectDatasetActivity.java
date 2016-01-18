@@ -29,7 +29,7 @@ public class SelectDatasetActivity extends ActionBarActivity {
         super.onPostResume();
 
         // Check for existing datasets
-        String jsonPath = Environment.getExternalStorageDirectory() + "/datasets.json";
+        String jsonPath = Paths.DatasetJson();
         try {
             // Parse dataset JSON
             String jsonString = null;

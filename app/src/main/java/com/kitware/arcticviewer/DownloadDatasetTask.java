@@ -51,8 +51,8 @@ public class DownloadDatasetTask extends AsyncTask<Void, Integer, Long> {
 
             int fileLength = connection.getContentLength();
 
-            String filename = imageUrl.substring(imageUrl.lastIndexOf('/'));
-            String fullpath = Environment.getExternalStorageDirectory() + filename;
+            String filename = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+            String fullpath = Paths.DatasetDirectory() + filename;
 
             dataset.put("path", fullpath);
 
@@ -103,7 +103,7 @@ public class DownloadDatasetTask extends AsyncTask<Void, Integer, Long> {
 
         // Add downloaded dataset to json
         try {
-            String jsonPath = Environment.getExternalStorageDirectory() + "/datasets.json";
+            String jsonPath = Paths.DatasetJson();
 
             // Parse dataset JSON, if it exists
             JSONArray array = null;
